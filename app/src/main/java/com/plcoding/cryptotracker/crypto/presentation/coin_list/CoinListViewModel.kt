@@ -1,4 +1,4 @@
-package com.plcoding.cryptotracker.crypto.presentation.models.coin_list
+package com.plcoding.cryptotracker.crypto.presentation.coin_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,7 +9,6 @@ import com.plcoding.cryptotracker.crypto.presentation.models.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn

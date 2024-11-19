@@ -1,4 +1,4 @@
-package com.plcoding.cryptotracker.crypto.presentation.models.coin_list
+package com.plcoding.cryptotracker.crypto.presentation.coin_list
 
 import com.plcoding.cryptotracker.core.domain.util.NetworkError
 
