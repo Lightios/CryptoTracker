@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.time.ZonedDateTime
 
 class CoinListViewModel(
     private val coinDataSource: CoinDataSource
@@ -33,10 +34,28 @@ class CoinListViewModel(
     fun onAction(action: CoinListAction) {
         when(action) {
             is CoinListAction.OnCoinClick -> {
-                _state.update { it.copy(
-                    selectedCoin = action.coinUi
-                ) }
+                selectCoin(action.coinUi)
             }
+        }
+    }
+
+    private fun selectCoin(coinUI: CoinUI) {
+        _state.update { it.copy(selectedCoin = coinUI) }
+
+        viewModelScope.launch {
+            coinDataSource
+                .getCoinHistory(
+                    coinUI.id,
+                    ZonedDateTime.now().minusDays(5),
+                    ZonedDateTime.now()
+                )
+                .onSuccess { history ->
+                    println(history)
+                }
+
+                .onError { error ->
+                    _event.send(CoinListEvent.Error(error))
+                }
         }
     }
 
